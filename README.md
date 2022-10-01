@@ -10,3 +10,4 @@ Air conditioner: CORONA CSH-229C
 A sub-project to analyze the signals from genuine remote controller.
 
 ver.1.0 Basic implementation of IR_receiver
+ver.1.0.1 Change the logic to distinguish "0" and "1"
