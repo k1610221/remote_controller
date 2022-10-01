@@ -11,4 +11,5 @@ A sub-project to analyze the signals from genuine remote controller.
 
 ver.1.0 Basic implementation of IR_receiver<br />
 ver.1.0.1 Change the logic to distinguish "0" and "1"<br />
-ver.1.0.2 Add process to fix "LOW 1300" problem
+ver.1.0.2 Add process to fix "LOW 1300" problem<br />
+ver.1.0.3 Add an empty line every 3 lines for readability of results
