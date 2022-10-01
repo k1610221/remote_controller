@@ -1,4 +1,4 @@
-// IR_receiver ver.1.0.2
+// IR_receiver ver.1.0.3
 #include "driver/rmt.h"
 #include <string.h>
 
@@ -18,6 +18,8 @@ void app_main(void) {
     rmt_driver_install(Config.channel, 768, 0);
     rmt_get_ringbuf_handle(Config.channel, &buffer);
     rmt_rx_start(Config.channel, true);
+
+    uint8_t counter = 0; // for adding an empty line every 3 lines
 
     while(1) {
         size_t item_size;
@@ -50,6 +52,7 @@ void app_main(void) {
             }
             #endif
             vRingbufferReturnItem(buffer, (void *)item);
+            if(++counter == 3 ) {printf("\n"); counter = 0;}
         }
     }
 }
