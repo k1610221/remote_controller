@@ -1,4 +1,4 @@
-// IR_receiver ver.1.0
+// IR_receiver ver.1.0.1
 #include "driver/rmt.h"
 
 RingbufHandle_t buffer = NULL;
@@ -25,7 +25,7 @@ void app_main(void) {
             #if 1 // Display binary
             for(int i = 1; i < item_size; i++) {
                 if(item[i].duration0 == 0 || item[i].duration1 == 0) break; // trailer
-                item[i].duration0 > item[i].duration1 ? printf("0") : printf("1");
+                item[i].duration1 > 500 ? printf("1") : printf("0");
                 if(i % 8 == 0) printf(" ");
             }
             printf("\n");
