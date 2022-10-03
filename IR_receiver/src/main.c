@@ -1,4 +1,4 @@
-// IR_receiver ver.1.0.4
+// IR_receiver ver.1.0.5
 #include "driver/rmt.h"
 #include <string.h>
 
@@ -6,14 +6,8 @@ RingbufHandle_t buffer = NULL;
 
 typedef union {
     struct {
-        uint8_t b0 : 1;
-        uint8_t b1 : 1;
-        uint8_t b2 : 1;
-        uint8_t b3 : 1;
-        uint8_t b4 : 1;
-        uint8_t b5 : 1;
-        uint8_t b6 : 1;
-        uint8_t b7 : 1;
+        uint8_t upper_nibble : 4;
+        uint8_t lower_nibble : 4;
     };
     uint8_t val;
 } byte;
@@ -33,37 +27,26 @@ void app_main(void) {
     rmt_get_ringbuf_handle(Config.channel, &buffer);
     rmt_rx_start(Config.channel, true);
 
-    uint8_t counter = 0; // for adding an empty line every 3 lines
+    uint8_t line_counter = 0; // for adding an empty line every 3 lines
 
     while(1) {
         size_t item_size;
-        rmt_item32_t *item = (rmt_item32_t *)xRingbufferReceive(buffer, &item_size, pdMS_TO_TICKS(1000));
+        rmt_item32_t *item = (rmt_item32_t *)xRingbufferReceive(buffer, &item_size, pdMS_TO_TICKS(1000)); // raw data
         if(item) {
             #if 1
-            uint8_t data[64]; // data after processing item(raw data)
+            byte data[8];
             memset(data, 0, sizeof(data));
-            uint8_t j = 0; // index for data[64]
+            uint8_t j = 0; // counter for data (bit)
             for(int i = 1; i < item_size; i++) {
                 if(item[i].duration0 == 0 || item[i].duration1 == 0) break; // trailer
-                if(item[i].duration0 > 1300) {
-                    data[j++] = 0;
-                }
-                if(item[i].duration1 > 500) data[j++] = 1;
-                else data[j++] = 0;
+                if(item[i].duration1 > 1300) j++;
+                if(item[i].duration1 > 500) {
+                    data[j / 8].val |= 1 << (7 - (j % 8));
+                    j++;
+                } else j++;
             }
 
-            for(int i = 0; i < 56;) { // display hexadecimal in little endian
-                byte temp;
-                temp.b7 = data[i++];
-                temp.b6 = data[i++];
-                temp.b5 = data[i++];
-                temp.b4 = data[i++];
-                temp.b3 = data[i++];
-                temp.b2 = data[i++];
-                temp.b1 = data[i++];
-                temp.b0 = data[i++];
-                printf("%02x ", temp.val);
-            }
+            for(int i = 0; i < 7; i++) printf("%02x ", data[i].val); // display hexadecimal in little endian
             printf("\n");
             
             #else // Display details
@@ -76,7 +59,7 @@ void app_main(void) {
             }
             #endif
             vRingbufferReturnItem(buffer, (void *)item);
-            if(++counter == 3 ) {printf("\n"); counter = 0;}
+            if(++line_counter == 3 ) {printf("\n"); line_counter = 0;}
         }
     }
 }
