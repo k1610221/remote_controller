@@ -1,15 +1,18 @@
 # remote_controller
-Microcontroller: ESP-WROOM-32<br />
+## Overview
+The goal of this project is to control the air conditioner using mobile application via internet. 
+
+## Hardware
 Development board: WayinTop ESP32 (Espressif ESP32 Dev Module compatible)<br />
+Microcontroller: ESP-WROOM-32<br />
+
+## Environment
 IDE: Visual Studio Code (PlatformIO extension)<br />
 Framework: ESP-IDF(v4.4.2)<br />
 
+## Target
 Air conditioner: CORONA CSH-229C
 
-[IR_receiver]<br />
+## Software
+### IR_receiver 
 A sub-project to analyze the signals from genuine remote controller.
-
-ver.1.0.0 Basic implementation of IR_receiver<br />
-ver.1.0.1 Change the logic to distinguish "0" and "1"<br />
-ver.1.0.2 Add process to fix "LOW 1300" problem<br />
-ver.1.0.3 Add an empty line every 3 lines for readability of results
