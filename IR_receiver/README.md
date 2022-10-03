@@ -18,4 +18,5 @@ ver.1.0.1 Change the logic to distinguish "0" and "1" <br>
 ver.1.0.2 Add process to fix "LOW 1300" problem <br>
 ver.1.0.3 Add an empty line every 3 lines for readability of results <br>
 ver.1.0.4 Display results in hexadecimal representation with little endian manner <br>
-ver.1.0.5 Code refactoring with struct of 1 byte
+ver.1.0.5 Code refactoring with struct of 1 byte <br>
+ver.1.1.0 Add error detection (1's complement)

@@ -1,4 +1,4 @@
-// IR_receiver ver.1.0.5
+// IR_receiver ver.1.1.0
 #include "driver/rmt.h"
 #include <string.h>
 
@@ -46,7 +46,12 @@ void app_main(void) {
                 } else j++;
             }
 
+            bool error_flag = 0; // 0 -> no error, 1 -> error
+            if((data[3].val & data[4].val) != 0) error_flag = 1;
+            if((data[5].val & data[6].val) != 0) error_flag = 1;
+
             for(int i = 0; i < 7; i++) printf("%02x ", data[i].val); // display hexadecimal in little endian
+            if(error_flag) printf("// error detected");
             printf("\n");
             
             #else // Display details
