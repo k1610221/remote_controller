@@ -1,13 +1,13 @@
-// IR_receiver ver.1.1.0
+// IR_receiver ver.1.1.1
 #include "driver/rmt.h"
 #include <string.h>
 
 RingbufHandle_t buffer = NULL;
 
-typedef union {
+typedef union { // (MSB) upper_nibble | lower_nibble (LSB)
     struct {
-        uint8_t upper_nibble : 4;
         uint8_t lower_nibble : 4;
+        uint8_t upper_nibble : 4;
     };
     uint8_t val;
 } byte;
@@ -47,6 +47,7 @@ void app_main(void) {
             }
 
             bool error_flag = 0; // 0 -> no error, 1 -> error
+            if((data[0].upper_nibble ^ data[0].lower_nibble ^ data[1].upper_nibble ^ data[1].lower_nibble) != data[2].upper_nibble) error_flag = 1;
             if((data[3].val & data[4].val) != 0) error_flag = 1;
             if((data[5].val & data[6].val) != 0) error_flag = 1;
 
