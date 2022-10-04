@@ -1,4 +1,4 @@
-// IR_receiver ver.1.2.0
+// IR_receiver ver.1.2.1
 #include "driver/rmt.h"
 #include <string.h>
 
@@ -41,17 +41,17 @@ void app_main(void) {
                 if(item[i].duration0 == 0 || item[i].duration1 == 0) break; // trailer
                 if(item[i].duration1 > 1300) j++;
                 if(item[i].duration1 > 500) {
-                    data[j / 8].val |= 1 << (j % 8); // store data in big endian
+                    data[j / 8].val |= 1 << (j % 8); // store data from LSB to MSB
                     j++;
                 } else j++;
             }
 
             bool error_flag = 0; // 0 -> no error, 1 -> error
-            if((data[0].upper_nibble ^ data[0].lower_nibble ^ data[1].upper_nibble ^ data[1].lower_nibble) != data[2].upper_nibble) error_flag = 1;
+            if((data[0].upper_nibble ^ data[0].lower_nibble ^ data[1].upper_nibble ^ data[1].lower_nibble) != data[2].lower_nibble) error_flag = 1;
             if((data[3].val & data[4].val) != 0) error_flag = 1;
             if((data[5].val & data[6].val) != 0) error_flag = 1;
 
-            for(int i = 0; i < 7; i++) printf("%02x ", data[i].val); // display hexadecimal in big endian
+            for(int i = 0; i < 7; i++) printf("%02x ", data[i].val); // display hexadecimal
             if(error_flag) printf("// error detected");
             printf("\n");
             
