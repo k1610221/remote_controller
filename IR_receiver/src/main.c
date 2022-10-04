@@ -1,4 +1,4 @@
-// IR_receiver ver.1.1.1
+// IR_receiver ver.1.2.0
 #include "driver/rmt.h"
 #include <string.h>
 
@@ -41,7 +41,7 @@ void app_main(void) {
                 if(item[i].duration0 == 0 || item[i].duration1 == 0) break; // trailer
                 if(item[i].duration1 > 1300) j++;
                 if(item[i].duration1 > 500) {
-                    data[j / 8].val |= 1 << (7 - (j % 8));
+                    data[j / 8].val |= 1 << (j % 8); // store data in big endian
                     j++;
                 } else j++;
             }
@@ -51,7 +51,7 @@ void app_main(void) {
             if((data[3].val & data[4].val) != 0) error_flag = 1;
             if((data[5].val & data[6].val) != 0) error_flag = 1;
 
-            for(int i = 0; i < 7; i++) printf("%02x ", data[i].val); // display hexadecimal in little endian
+            for(int i = 0; i < 7; i++) printf("%02x ", data[i].val); // display hexadecimal in big endian
             if(error_flag) printf("// error detected");
             printf("\n");
             
