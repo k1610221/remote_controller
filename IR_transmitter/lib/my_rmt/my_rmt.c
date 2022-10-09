@@ -104,10 +104,10 @@ void my_rmt_generate_command(my_rmt_command *command, my_rmt_mode mode, uint8_t 
         my_rmt_fill_byte(&(command->signal_2[41]),  time * 7);      // byte[5]
         my_rmt_fill_byte(&(command->signal_2[49]),~(time * 7));     // byte[6]
     } else {
-        my_rmt_fill_byte(&(command->signal_2[25]), 0x00);           // byte[3]
-        my_rmt_fill_byte(&(command->signal_2[33]),~0x00);           // byte[4]
-        my_rmt_fill_byte(&(command->signal_2[41]), 0x00);           // byte[5]
-        my_rmt_fill_byte(&(command->signal_2[49]),~0x00);           // byte[6]        
+        my_rmt_fill_byte(&(command->signal_2[25]), 0xff);           // byte[3]
+        my_rmt_fill_byte(&(command->signal_2[33]), 0x00);           // byte[4]
+        my_rmt_fill_byte(&(command->signal_2[41]), 0xff);           // byte[5]
+        my_rmt_fill_byte(&(command->signal_2[49]), 0x00);           // byte[6]        
     }
     my_rmt_fill_trailor(&(command->signal_2[57]));
 
@@ -122,10 +122,10 @@ void my_rmt_generate_command(my_rmt_command *command, my_rmt_mode mode, uint8_t 
         my_rmt_fill_byte(&(command->signal_3[41]),  time * 7);      // byte[5]
         my_rmt_fill_byte(&(command->signal_3[49]),~(time * 7));     // byte[6]
     } else {
-        my_rmt_fill_byte(&(command->signal_3[25]), 0x00);           // byte[3]
-        my_rmt_fill_byte(&(command->signal_3[33]),~0x00);           // byte[4]
-        my_rmt_fill_byte(&(command->signal_3[41]), 0x00);           // byte[5]
-        my_rmt_fill_byte(&(command->signal_3[49]),~0x00);           // byte[6]        
+        my_rmt_fill_byte(&(command->signal_3[25]), 0xff);           // byte[3]
+        my_rmt_fill_byte(&(command->signal_3[33]), 0x00);           // byte[4]
+        my_rmt_fill_byte(&(command->signal_3[41]), 0xff);           // byte[5]
+        my_rmt_fill_byte(&(command->signal_3[49]), 0x00);           // byte[6]        
     }
     my_rmt_fill_trailor(&(command->signal_3[57]));
 }

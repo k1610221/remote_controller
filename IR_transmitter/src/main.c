@@ -1,4 +1,4 @@
-// IR_transmitter ver.2.2.0
+// IR_transmitter ver.2.2.1
 #include "driver/rmt.h"
 #include "my_rmt.h"
 
@@ -11,7 +11,7 @@ void app_main(void) {
     Config.clk_div = 80;
     Config.flags = 0; // if not 0, clk_div would be corrupted in some situation
     Config.tx_config.loop_en = false;
-    Config.tx_config.carrier_en = false; // true when practice;
+    Config.tx_config.carrier_en = true; // true when practice;
     Config.tx_config.carrier_freq_hz = 38000;
     Config.tx_config.carrier_duty_percent = 33;
     Config.tx_config.carrier_level = RMT_CARRIER_LEVEL_HIGH;
