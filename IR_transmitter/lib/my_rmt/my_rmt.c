@@ -51,7 +51,26 @@ void my_rmt_fill_trailor(rmt_item32_t *pointer) {
     pointer->level1 = 0;
 }
 
-void my_rmt_generate_command(my_rmt_command *command, my_rmt_mode mode, uint8_t temp, my_rmt_wind wind, my_rmt_power power, my_rmt_timer timer, uint8_t time) {
+my_rmt_error my_rmt_generate_command(my_rmt_command *command, my_rmt_mode mode, uint8_t temp, my_rmt_wind wind, my_rmt_power power, my_rmt_timer timer, uint8_t time) {
+    // constraints
+    if((mode == MY_RMT_MODE_COOL)||(mode == MY_RMT_MODE_DRY)||(mode == MY_RMT_MODE_FAN)) {
+        if((temp < 20) || (temp > 30)) return MY_RMT_ERROR_TEMP;
+    } else if(mode == MY_RMT_MODE_WARM) {
+        if((temp < 17) || (temp > 30)) return MY_RMT_ERROR_TEMP;
+    }
+
+    if(mode == MY_RMT_MODE_DRY) {
+        if(wind != MY_RMT_WIND_AUTO) return MY_RMT_ERROR_WIND;
+    }
+
+    if(timer == MY_RMT_TIMER_NULL) {
+        if(time != 0) return MY_RMT_ERROR_TIME;
+    }
+
+    if((timer == MY_RMT_TIMER_OFF_AFTER)||(timer == MY_RMT_TIMER_ON_AFTER)) {
+        if((time == 0)||(time > 12)) return MY_RMT_ERROR_TIME;
+    }
+
     // 1st 7-byte signal
     my_rmt_fill_leader(&(command->signal_1[0]));
     my_rmt_fill_byte(&(command->signal_1[1]), 0x28);    // byte[0]
@@ -128,6 +147,8 @@ void my_rmt_generate_command(my_rmt_command *command, my_rmt_mode mode, uint8_t 
         my_rmt_fill_byte(&(command->signal_3[49]), 0x00);           // byte[6]        
     }
     my_rmt_fill_trailor(&(command->signal_3[57]));
+
+    return MY_RMT_ERROR_SUCCESS;
 }
 
 void my_rmt_transmit_command(rmt_channel_t channel, my_rmt_command *command) {

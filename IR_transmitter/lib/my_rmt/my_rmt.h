@@ -1,4 +1,11 @@
 typedef enum {
+    MY_RMT_ERROR_SUCCESS,
+    MY_RMT_ERROR_TEMP,
+    MY_RMT_ERROR_WIND,
+    MY_RMT_ERROR_TIME
+} my_rmt_error;
+
+typedef enum {
     MY_RMT_WIND_GENTLE, // 微風
     MY_RMT_WIND_WEAK,   // 弱風
     MY_RMT_WIND_STRONG, // 強風
@@ -34,5 +41,5 @@ void my_rmt_fill_nibble(rmt_item32_t *pointer, uint8_t value);  // fill 4 items 
 void my_rmt_fill_byte(rmt_item32_t *pointer, uint8_t value);    // fill 8 items from pointer
 void my_rmt_fill_leader(rmt_item32_t *pointer);
 void my_rmt_fill_trailor(rmt_item32_t *pointer);
-void my_rmt_generate_command(my_rmt_command *command, my_rmt_mode mode, uint8_t temp, my_rmt_wind wind, my_rmt_power power, my_rmt_timer timer, uint8_t time);
+my_rmt_error my_rmt_generate_command(my_rmt_command *command, my_rmt_mode mode, uint8_t temp, my_rmt_wind wind, my_rmt_power power, my_rmt_timer timer, uint8_t time);
 void my_rmt_transmit_command(rmt_channel_t channel, my_rmt_command *command);

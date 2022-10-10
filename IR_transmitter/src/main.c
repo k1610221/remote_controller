@@ -1,4 +1,4 @@
-// IR_transmitter ver.2.2.1
+// IR_transmitter ver.2.2.2
 #include "driver/rmt.h"
 #include "my_rmt.h"
 
@@ -20,9 +20,7 @@ void app_main(void) {
     rmt_driver_install(Config.channel, 0, 0);
 
     my_rmt_command data;
-    my_rmt_generate_command(&data, MY_RMT_MODE_COOL, 20, MY_RMT_WIND_WEAK, MY_RMT_POWER_ON, MY_RMT_TIMER_NULL, 0);
-    while(1) {
+    if(my_rmt_generate_command(&data, MY_RMT_MODE_COOL, 20, MY_RMT_WIND_WEAK, MY_RMT_POWER_ON, MY_RMT_TIMER_NULL, 0) == MY_RMT_ERROR_SUCCESS) {
         my_rmt_transmit_command(Config.channel, &data);
-        vTaskDelay(pdMS_TO_TICKS(5000));
     }
 }
