@@ -1,4 +1,4 @@
-// IR_transmitter ver.2.2.2
+// IR_transmitter ver.2.2.3
 #include "driver/rmt.h"
 #include "my_rmt.h"
 

@@ -17,3 +17,4 @@ ver.2.1.0 Sending 7-byte signal with library <br>
 ver.2.2.0 Sending whole command (but not working yet) <br>
 ver.2.2.1 Minor bug fix (Yes it's working now!) <br>
 ver.2.2.2 Add some constraints <br>
+ver.2.2.3 Add descriptions in header file <br>
