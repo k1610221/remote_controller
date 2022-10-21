@@ -1,6 +1,6 @@
 # remote_controller
 ## Overview
-The goal of this project is to control the air conditioner using mobile application via internet. 
+The goal of this project is to control the air conditioner via internet. 
 
 ## Hardware
 Development board: WayinTop ESP32 (Espressif ESP32 Dev Module compatible)<br />
