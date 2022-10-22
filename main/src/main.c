@@ -2,16 +2,16 @@
 #include "wifi.h"
 #include "esp_http_server.h"
 
-esp_err_t get_handler(httpd_req_t *req) {
+esp_err_t home_handler(httpd_req_t *req) {
     const char resp[] = "<h1>Hello, world!</h1>";
     httpd_resp_send(req, resp, HTTPD_RESP_USE_STRLEN);
     return ESP_OK;
 }
 
-httpd_uri_t uri_get = {
+httpd_uri_t uri_home = {
     .uri        = "/",
     .method     = HTTP_GET,
-    .handler    = get_handler,
+    .handler    = home_handler,
     .user_ctx   = NULL
 };
 
@@ -28,6 +28,6 @@ void app_main(void) {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
     httpd_handle_t server = NULL;
     if(httpd_start(&server, &config) == ESP_OK) {
-        httpd_register_uri_handler(server, &uri_get);
+        httpd_register_uri_handler(server, &uri_home);
     }
 }
