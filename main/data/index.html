@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>リモコン操作</title>
+    <meta http-equiv="content-type" charset="UTF-8">
+    <script src="script.js"></script>
+</head>
+<body>
+    <form action="" method="post">
+        運転
+        <select id="mode" onchange="constraint_wind(); constraint_temp();" name="mode">
+            <option value="warm">暖房</option>
+            <option value="cool">冷房</option>
+            <option value="dry">ドライ</option>
+            <option value="fan">送風</option>
+        </select>
+        風量
+        <select id="wind" name="wind">
+            <option value="auto" >自動</option>
+            <option value="gentle">微風</option>
+            <option value="weak">弱風</option>
+            <option value="strong">強風</option>
+            <option value="null" style="display:none">指定不可</option>
+        </select>
+        温度
+        <select id="temp" name="temp">
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20" selected>20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+        </select>
+        タイマー
+        <select id="timer" onchange="constraint_time_power()" name="timer">
+            <option value="false">無し</option>
+            <option value="true">有り</option>
+        </select>
+
+        （これから
+        <select id="time" disabled="true" name="time">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="null" style="display:none" selected>指定不可</option>
+        </select>
+        時間後電源
+        <select id="power" disabled="true" name="power">
+            <option value="on">ON</option>
+            <option value="off">OFF</option>
+            <option value="null" style="display:none" selected>指定不可</option>
+        </select>
+        ）
+        <input type="submit" value="送信">
+    </form>
+</body>
+</html>
