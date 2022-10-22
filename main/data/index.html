@@ -20,7 +20,6 @@
             <option value="gentle">微風</option>
             <option value="weak">弱風</option>
             <option value="strong">強風</option>
-            <option value="null" style="display:none">指定不可</option>
         </select>
         温度
         <select id="temp" name="temp">
@@ -46,26 +45,12 @@
         </select>
 
         （これから
-        <select id="time" disabled="true" name="time">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="null" style="display:none" selected>指定不可</option>
+        <select id="time" name="time">
+            <option value="null">指定不可</option>
         </select>
         時間後電源
-        <select id="power" disabled="true" name="power">
-            <option value="on">ON</option>
-            <option value="off">OFF</option>
-            <option value="null" style="display:none" selected>指定不可</option>
+        <select id="power" name="power">
+            <option value="null">指定不可</option>
         </select>
         ）
         <input type="submit" value="送信">

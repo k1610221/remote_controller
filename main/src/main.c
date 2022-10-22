@@ -28,6 +28,7 @@ esp_err_t script_handler(httpd_req_t *req) {
 
 esp_err_t post_handler(httpd_req_t *req) {
     char content[100];
+    memset(content, 0, sizeof(content));
     size_t recv_size = req->content_len;
     int ret = httpd_req_recv(req, content, recv_size);
     if(ret <= 0) {
