@@ -2,7 +2,7 @@
 #include "wifi.h"
 #include "esp_http_server.h"
 #include "esp_spiffs.h"
-#include "stdio.h"
+#include <stdio.h>
 
 esp_err_t home_handler(httpd_req_t *req) {
     char line[100];
@@ -26,6 +26,20 @@ esp_err_t script_handler(httpd_req_t *req) {
     return ESP_OK;
 }
 
+esp_err_t post_handler(httpd_req_t *req) {
+    char content[100];
+    size_t recv_size = req->content_len;
+    int ret = httpd_req_recv(req, content, recv_size);
+    if(ret <= 0) {
+        if(ret == HTTPD_SOCK_ERR_TIMEOUT) {
+            httpd_resp_send_408(req);
+        }
+        return ESP_FAIL;
+    }
+    httpd_resp_send(req, content, HTTPD_RESP_USE_STRLEN);
+    return ESP_OK;
+}
+
 httpd_uri_t uri_home = {
     .uri        = "/",
     .method     = HTTP_GET,
@@ -37,6 +51,13 @@ httpd_uri_t uri_script = {
     .uri        = "/script.js",
     .method     = HTTP_GET,
     .handler    = script_handler,
+    .user_ctx   = NULL
+};
+
+httpd_uri_t uri_post = {
+    .uri        = "/",
+    .method     = HTTP_POST,
+    .handler    = post_handler,
     .user_ctx   = NULL
 };
 
@@ -62,5 +83,6 @@ void app_main(void) {
     if(httpd_start(&server, &config) == ESP_OK) {
         httpd_register_uri_handler(server, &uri_home);
         httpd_register_uri_handler(server, &uri_script);
+        httpd_register_uri_handler(server, &uri_post);
     }
 }
