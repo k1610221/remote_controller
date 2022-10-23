@@ -5,39 +5,39 @@
 #include <stdio.h>
 
 esp_err_t home_handler(httpd_req_t *req) {
-    char line[100];
+    char buf[100];
     FILE *fs = fopen("/spiffs/index.html", "r");
-    while(fgets(line, sizeof(line), fs)) {
-        httpd_resp_send_chunk(req, line, HTTPD_RESP_USE_STRLEN);
+    while(fgets(buf, sizeof(buf), fs)) {
+        httpd_resp_send_chunk(req, buf, HTTPD_RESP_USE_STRLEN);
     }
-    httpd_resp_send_chunk(req, line, 0);
+    httpd_resp_send_chunk(req, buf, 0);
     fclose(fs);
     return ESP_OK;
 }
 
 esp_err_t script_handler(httpd_req_t *req) {
-    char line[100];
+    char buf[100];
     FILE *fs = fopen("/spiffs/script.js", "r");
-    while(fgets(line, sizeof(line), fs)) {
-        httpd_resp_send_chunk(req, line, HTTPD_RESP_USE_STRLEN);
+    while(fgets(buf, sizeof(buf), fs)) {
+        httpd_resp_send_chunk(req, buf, HTTPD_RESP_USE_STRLEN);
     }
-    httpd_resp_send_chunk(req, line, 0);
+    httpd_resp_send_chunk(req, buf, 0);
     fclose(fs);
     return ESP_OK;
 }
 
 esp_err_t post_handler(httpd_req_t *req) {
-    char content[100];
-    memset(content, 0, sizeof(content));
+    char buf[100];
+    memset(buf, 0, sizeof(buf));
     size_t recv_size = req->content_len;
-    int ret = httpd_req_recv(req, content, recv_size);
+    int ret = httpd_req_recv(req, buf, recv_size);
     if(ret <= 0) {
         if(ret == HTTPD_SOCK_ERR_TIMEOUT) {
             httpd_resp_send_408(req);
         }
         return ESP_FAIL;
     }
-    httpd_resp_send(req, content, HTTPD_RESP_USE_STRLEN);
+    httpd_resp_send(req, buf, HTTPD_RESP_USE_STRLEN);
     return ESP_OK;
 }
 

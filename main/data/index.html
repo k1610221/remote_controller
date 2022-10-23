@@ -1,59 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>リモコン操作</title>
+    <title>リモコン</title>
     <meta http-equiv="content-type" charset="UTF-8">
-    <script src="script.js"></script>
+    <!-- <link rel="icon" href="favicon.ico"> -->
 </head>
 <body>
-    <form action="" method="post">
-        運転
-        <select id="mode" onchange="constraint_wind(); constraint_temp();" name="mode">
-            <option value="warm">暖房</option>
-            <option value="cool">冷房</option>
-            <option value="dry">ドライ</option>
-            <option value="fan">送風</option>
-        </select>
-        風量
-        <select id="wind" name="wind">
-            <option value="auto" >自動</option>
-            <option value="gentle">微風</option>
-            <option value="weak">弱風</option>
-            <option value="strong">強風</option>
-        </select>
-        温度
-        <select id="temp" name="temp">
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20" selected>20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-            <option value="24">24</option>
-            <option value="25">25</option>
-            <option value="26">26</option>
-            <option value="27">27</option>
-            <option value="28">28</option>
-            <option value="29">29</option>
-            <option value="30">30</option>
-        </select>
-        タイマー
-        <select id="timer" onchange="constraint_time_power()" name="timer">
-            <option value="false">無し</option>
-            <option value="true">有り</option>
-        </select>
+<h1>現在エアコン：<span style='color:darkgreen'>稼働中</span></h1>
+<h2>暖房 / 微風 / 30℃ / 50分後 休止</h2>
+<form id="command" action="" method="post">
+    運転
+    <select name="mode" id="mode" onchange="constraint_wind();constraint_temp();">
+        <option value="0">暖房</option>
+        <option value="1">冷房</option>
+        <option value="2">ドライ</option>
+        <option value="3">送風</option>
+    </select>
+    風量
+    <select name="wind" id="wind">
+        <option value="0">自動　　</option>
+        <option value="1">微風</option>
+        <option value="2">弱風</option>
+        <option value="3">強風</option>
+    </select>
+    温度
+    <select name="temp" id="temp">
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+        <option value="29">29</option>
+        <option value="30">30</option>
+    </select>
+    タイマー
+    <select name="timer" id="timer" onchange="display_detail()">
+        <option value="0">無し</option>
+        <option value="1">有り</option>
+    </select>
 
-        （これから
-        <select id="time" name="time">
-            <option value="null">指定不可</option>
+    <input type="button" value="送信" onclick="send()">
+    <input type="button" value="終了" onclick="terminate()">
+    <input type="button" value="リセット" onclick="reset()">
+
+    <div id="detail" hidden="true">
+        *タイマー：今から
+        <select name="time" id="time">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="0" hidden>null</option>
         </select>
-        時間後電源
-        <select id="power" name="power">
-            <option value="null">指定不可</option>
+        時間後に電源を
+        <select name="timer_mode" id="timer_mode">
+            <option value="1" >ON</option>
+            <option value="2">OFF</option>
+            <option value="0" hidden>null</option>
         </select>
-        ）
-        <input type="submit" value="送信">
-    </form>
+    </div>
+</form>
+    <hr>
+    2022-10-23 01:09:30 暖房 / 微風 / 25℃ / 開始 <br>
+    2022-10-23 00:04:55 暖房 / 弱風 / 22℃ / - <br>
+
+    <script src="script.js"></script>
 </body>
 </html>
