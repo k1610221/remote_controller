@@ -3,12 +3,11 @@
 <head>
     <title>リモコン</title>
     <meta http-equiv="content-type" charset="UTF-8">
-    <!-- <link rel="icon" href="favicon.ico"> -->
 </head>
 <body>
-<h1>現在エアコン：<span style='color:darkgreen'>稼働中</span></h1>
-<h2>暖房 / 微風 / 30℃ / 50分後 休止</h2>
-<form id="command" action="" method="post">
+<h1>現在エアコン：<span id="state_power"> </span></h1>
+<h2 id="state_detail"> </h2>
+<form id="form" action="" method="get">
     運転
     <select name="mode" id="mode" onchange="constraint_wind();constraint_temp();">
         <option value="0">暖房</option>
@@ -41,43 +40,39 @@
         <option value="30">30</option>
     </select>
     タイマー
-    <select name="timer" id="timer" onchange="display_detail()">
+    <select name="timer_on" id="timer_on" onchange="display_detail()">
         <option value="0">無し</option>
         <option value="1">有り</option>
     </select>
 
-    <input type="button" value="送信" onclick="send()">
-    <input type="button" value="終了" onclick="terminate()">
-    <input type="button" value="リセット" onclick="reset()">
+    <input type="button" value="送信" onclick="run()">
+    <input type="button" value="終了" onclick="stop()">
 
     <div id="detail" hidden="true">
         *タイマー：今から
-        <select name="time" id="time">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="0" hidden>null</option>
+        <select name="timer_time" id="timer_time">
+            <option value="60">1</option>
+            <option value="120">2</option>
+            <option value="180">3</option>
+            <option value="240">4</option>
+            <option value="300">5</option>
+            <option value="360">6</option>
+            <option value="420">7</option>
+            <option value="480">8</option>
+            <option value="540">9</option>
+            <option value="600">10</option>
+            <option value="660">11</option>
+            <option value="720">12</option>
         </select>
         時間後に電源を
         <select name="timer_mode" id="timer_mode">
-            <option value="1" >ON</option>
-            <option value="2">OFF</option>
-            <option value="0" hidden>null</option>
+            <option value="0">OFF</option>
+            <option value="1">ON</option>
         </select>
     </div>
 </form>
     <hr>
-    2022-10-23 01:09:30 暖房 / 微風 / 25℃ / 開始 <br>
-    2022-10-23 00:04:55 暖房 / 弱風 / 22℃ / - <br>
+    Kangsan Kim. k1610221@gmail.com
 
     <script src="script.js"></script>
 </body>
