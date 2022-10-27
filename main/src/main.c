@@ -114,21 +114,25 @@ httpd_uri_t uri_stop = {
 
 void app_main(void) {
     // IR transmitter
-    rmt_config_t remote_config;
-    remote_config.channel       = REMOTE_CHANNEL;
-    remote_config.rmt_mode      = RMT_MODE_TX;
-    remote_config.gpio_num      = GPIO_NUM_25;
-    remote_config.mem_block_num = 1;
-    remote_config.clk_div       = 80;
-    remote_config.flags         = 0;
-    remote_config.tx_config.loop_en             = false;
-    remote_config.tx_config.carrier_en          = true;
-    remote_config.tx_config.carrier_freq_hz     = 38000;
-    remote_config.tx_config.carrier_duty_percent= 33;
-    remote_config.tx_config.carrier_level       = RMT_CARRIER_LEVEL_HIGH;
-    remote_config.tx_config.idle_output_en      = false;
+    rmt_config_t remote_config = {
+        .channel       = REMOTE_CHANNEL,
+        .rmt_mode      = RMT_MODE_TX,
+        .gpio_num      = GPIO_NUM_25,
+        .mem_block_num = 1,
+        .clk_div       = 80,
+        .flags         = 0,
+        .tx_config.loop_en             = false,
+        .tx_config.carrier_en          = true,
+        .tx_config.carrier_freq_hz     = 38000,
+        .tx_config.carrier_duty_percent= 33,
+        .tx_config.carrier_level       = RMT_CARRIER_LEVEL_HIGH,
+        .tx_config.idle_output_en      = false
+    };
     rmt_config(&remote_config);
     rmt_driver_install(remote_config.channel, 0, 0);
+
+    // Timer
+
 
     // Wifi
     esp_err_t ret = nvs_flash_init();

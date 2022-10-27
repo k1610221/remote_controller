@@ -87,9 +87,12 @@ void remote_transmit(remote_state *state, remote_power prev_power) {
     }
     if(state->power == REMOTE_POWER_STOPPED) {
         buf += 1;
-    } else {
+    } else if(state->power == REMOTE_POWER_RUNNING){
         if(prev_power == REMOTE_POWER_STOPPED) buf += 2;
     }
+    // } else {
+    //     if(prev_power == REMOTE_POWER_STOPPED) buf += 2;
+    // }
     remote_fill_nibble(&(signal_1[45]), buf);
     remote_fill_nibble(&(signal_1[53]),~buf);
     remote_fill_trailor(&(signal_1[57]));
