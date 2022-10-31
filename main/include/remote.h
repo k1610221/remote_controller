@@ -30,7 +30,7 @@ typedef enum {
 typedef enum {
     REMOTE_POWER_STOPPED,
     REMOTE_POWER_RUNNING,
-    REMOTE_POWER_WAITING
+    REMOTE_POWER_TIMER
 } remote_power;
 
 typedef struct {

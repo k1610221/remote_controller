@@ -67,7 +67,10 @@ function load_state() {
             switch(power) {
                 case '0':power="休止中";break;
                 case '1':power="稼働中";break;
-                case '2':power="待機中";break;
+                case '2':
+                    if(timer_mode == 0) power = "稼働中";
+                    else if(timer_mode == 1) power = "待機中";
+                    break;
                 }
 
             if(power == "稼働中") document.getElementById("state_power").style.color = "darkgreen";

@@ -64,10 +64,7 @@ esp_err_t run_handler(httpd_req_t *req) {
     httpd_query_key_value(rx, "timer_time", buf, sizeof(buf)); state.timer_time = atoi(buf);
     httpd_query_key_value(rx, "timer_mode", buf, sizeof(buf)); state.timer_mode = atoi(buf);
     if(state.timer_on == REMOTE_TIMER_ON_FALSE) state.power = REMOTE_POWER_RUNNING;
-    else {
-        if(state.timer_mode == REMOTE_TIMER_MODE_ON) state.power = REMOTE_POWER_WAITING;
-        else if(state.timer_mode == REMOTE_TIMER_MODE_OFF) state.power = REMOTE_POWER_RUNNING;
-    }
+    else state.power = REMOTE_POWER_TIMER;
     httpd_resp_send(req, "Done", HTTPD_RESP_USE_STRLEN);
     remote_transmit(&state, prev_power);
     return ESP_OK;
