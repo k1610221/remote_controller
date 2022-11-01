@@ -1,5 +1,5 @@
 function constraint_wind() {
-    var selected = document.getElementById("mode").value;
+    let selected = document.getElementById("mode").value;
     if(selected == 2) { // dry
         document.getElementById("wind").options[0].selected = true;
         for(let i = 1; i < 4; i++) document.getElementById("wind").options[i].hidden = true;
@@ -9,7 +9,7 @@ function constraint_wind() {
 }
 
 function constraint_temp() {
-    var selected = document.getElementById("mode").value;
+    let selected = document.getElementById("mode").value;
     if(selected == 0) { // warm
         document.getElementById("temp").options[0].selected = "true";
         for(let i = 0; i < 3; i++) document.getElementById("temp").options[i].style.display = "initial";
@@ -20,23 +20,23 @@ function constraint_temp() {
 }
 
 function display_detail() {
-    var selected = document.getElementById("timer_on").value;
+    let selected = document.getElementById("timer_on").value;
     if(selected == 1) document.getElementById("detail").hidden = false;
     else document.getElementById("detail").hidden = true;
 }
 
 function run() {
-    var data = "mode=" + document.getElementById("mode").value +"&wind=" + document.getElementById("wind").value +
+    let data = "mode=" + document.getElementById("mode").value +"&wind=" + document.getElementById("wind").value +
                "&temp=" + document.getElementById("temp").value + "&timer_on=" + document.getElementById("timer_on").value + 
                "&timer_time=" + document.getElementById("timer_time").value + "&timer_mode=" + document.getElementById("timer_mode").value;
-    var request = new XMLHttpRequest();
+    let request = new XMLHttpRequest();
     request.open("POST", "/run", false);
     request.send(data);
     load_state();
 }
 
 function stop() {
-    var request = new XMLHttpRequest();
+    let request = new XMLHttpRequest();
     request.open("POST", "/stop", false);
     request.send();
     load_state();
@@ -45,13 +45,13 @@ function stop() {
 function load_state() {
     fetch('/state.csv').then(function(response){
         response.text().then(function(text){
-            var mode = text.split(',')[0];
-            var wind = text.split(',')[1];
-            var temp = text.split(',')[2];
-            var timer_on = text.split(',')[3];
-            var timer_time = text.split(',')[4];
-            var timer_mode = text.split(',')[5];
-            var power = text.split(',')[6];
+            let mode = text.split(',')[0];
+            let wind = text.split(',')[1];
+            let temp = text.split(',')[2];
+            let timer_on = text.split(',')[3];
+            let timer_time = text.split(',')[4];
+            let timer_mode = text.split(',')[5];
+            let power = text.split(',')[6];
             switch(mode) {
                 case '0':mode="暖房";break;
                 case '1':mode="冷房";break;
