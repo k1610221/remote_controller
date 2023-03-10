@@ -13,3 +13,8 @@ Framework: ESP-IDF(v4.4.2)<br />
 
 ## Target
 Air conditioner: CORONA CSH-229C
+
+## Demo
+[Youtube link 1](https://www.youtube.com/watch?v=2hLY7eDwqTc)
+
+[Youtube link 2](https://www.youtube.com/watch?v=K8oDMDE3MH0)
